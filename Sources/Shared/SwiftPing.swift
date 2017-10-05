@@ -20,7 +20,7 @@ func getIPv4AddressFromHost(host:String, error:AutoreleasingUnsafeMutablePointer
     if status == false {
         
         if Int32(streamError.domain)  == kCFStreamErrorDomainNetDB {
-            error.pointee = NSError(domain: kCFErrorDomainCFNetwork as String, code: Int(CFNetworkErrors.cfHostErrorUnknown.rawValue) , userInfo: [kCFGetAddrInfoFailureKey as NSObject : "error in host name or address lookup"])
+            error.pointee = NSError(domain: kCFErrorDomainCFNetwork as String, code: Int(CFNetworkErrors.cfHostErrorUnknown.rawValue) , userInfo: [kCFGetAddrInfoFailureKey as String : "error in host name or address lookup"])
         }
         else{
             error.pointee = NSError(domain: kCFErrorDomainCFNetwork as String, code: Int(CFNetworkErrors.cfHostErrorUnknown.rawValue) , userInfo: nil)
@@ -291,7 +291,7 @@ public class SwiftPing: NSObject {
         var icmpHeaderData:NSData?
         var icmpData:NSData?
         
-        let extractIPAddressBlock: (Void) -> String? = {
+        let extractIPAddressBlock: () -> String? = {
             if ipHeaderData == nil {
                 return nil
             }
@@ -379,13 +379,6 @@ public class SwiftPing: NSObject {
             }
             self.scheduleNextPing()
         }
-        
-//        typealias Block = @convention(block) () -> ()
-//        let block = self.timeoutBlock as! Block
-//        let dispatchTime: DispatchTime = DispatchTime.now() + Double(Int64((self.configuration?.pingInterval)! * Double(NSEC_PER_SEC)))
-//        
-//        self.currentQueue?.asyncAfter(deadline: dispatchTime, execute: block)
-        
-        
     }
 }
+
