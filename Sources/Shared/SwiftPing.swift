@@ -366,7 +366,7 @@ public class SwiftPing: NSObject {
         }
         
         let sequenceNumber:UInt64 = self.currentSequenceNumber;
-        self.timeoutBlock = { () -> Void in
+        self.timeoutBlock = { (Void) -> Void in
             if (sequenceNumber != self.currentSequenceNumber) {
                 return;
             }
